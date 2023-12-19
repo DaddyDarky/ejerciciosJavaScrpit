@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Acertijo Matemático</title>
+    <script>
+        // Función para generar un acertijo matemático aleatorio
+        function generarAcertijo() {
+            // Números aleatorios entre 1 y 10
+            const num1 = Math.floor(Math.random() * 10) + 1;
+            const num2 = Math.floor(Math.random() * 10) + 1;
+
+            // Operación aleatoria (suma o resta)
+            const operacion = Math.random() < 0.5 ? '+' : '-';
+
+            // Construir el acertijo
+            const acertijo = `${num1} ${operacion} ${num2}`;
+
+            // Mostrar el acertijo en la página
+            document.getElementById('acertijo').textContent = acertijo;
+
+            // Calcular la respuesta correcta y almacenarla en un atributo de datos
+            const respuesta = eval(acertijo);
+            document.getElementById('respuesta-correcta').dataset.respuesta = respuesta;
+        }
+
+        // Función para verificar la respuesta ingresada por el usuario
+        function verificarRespuesta() {
+            // Obtener la respuesta correcta desde el atributo de datos
+            const respuestaCorrecta = parseFloat(document.getElementById('respuesta-correcta').dataset.respuesta);
+
+            // Obtener la respuesta ingresada por el usuario
+            const respuestaUsuario = parseFloat(document.getElementById('respuesta-usuario').value);
+
+            // Verificar si la respuesta es correcta
+            if (!isNaN(respuestaUsuario) && respuestaUsuario === respuestaCorrecta) {
+                alert('¡Correcto! Has acertado.');
+            } else {
+                alert('Incorrecto. Inténtalo de nuevo.');
+            }
+
+            // Generar un nuevo acertijo
+            generarAcertijo();
+        }
+    </script>
+</head>
+<body>
+    <h1>Acertijo Matemático</h1>
+
+    <p id="acertijo"></p>
+
+    <label for="respuesta-usuario">Tu respuesta:</label>
+    <input type="text" id="respuesta-usuario">
+
+    <button onclick="verificarRespuesta()">Verificar</button>
+
+    <script>
+        // Inicializar la página generando el primer acertijo
+        generarAcertijo();
+    </script>
+</body>
+</html>
